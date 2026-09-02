@@ -8,8 +8,11 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [
 export function initSocketIO(httpServer: HTTPServer): Server {
   const io = new Server(httpServer, {
     cors: {
-      origin: allowedOrigins,
+      // TEMP: Allow all origins for local development testing only.
+      // TODO: Restrict this to the real frontend origin before production deployment.
+      origin: "*",
       methods: ["GET", "POST"],
+      credentials: false,
     },
   } as Partial<ServerOptions>);
 
